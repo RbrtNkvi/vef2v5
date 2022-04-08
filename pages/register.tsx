@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
 import { useUserContext } from "../context/userContext";
+import styles from '../styles/Home.module.css'
 
 let errors: any[];
 
@@ -29,7 +30,8 @@ export default function Home() {
   const [success, setSuccess] = useState(false);
 
   return (
-    <div>
+    <div className={styles.container}>
+      <main className={styles.main}>
       <Head>
         <title>Nýskráning</title>
       </Head>
@@ -76,7 +78,7 @@ export default function Home() {
       </form>
         )}
 
-      <footer>
+      <footer className={styles.footer}>
           <Link href='/'><a>Forsíða</a></Link>
           {
             loginContext.state.login.login ? <p>Skráður inn sem <b>{loginContext.state.login.user.user.name}</b></p> : <Link href='/login'>Innskráning</Link>
@@ -85,6 +87,7 @@ export default function Home() {
             loginContext.state.login.login ? <button onClick={loginContext.toggleLogin}>Útskrá</button> : <Link href='/register'>Nýskráning</Link>
           }
         </footer>
+      </main>
     </div>
   )
 }

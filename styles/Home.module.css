@@ -14,19 +14,14 @@
 
 .footer {
   display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  border-top: 1px solid #663;
+  margin-top: 1em;
+  justify-content: left;
+  width: 66%;
 }
 
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-}
+
 
 .title a {
   color: #0070f3;
@@ -113,4 +108,15 @@
     width: 100%;
     flex-direction: column;
   }
+}
+
+.list {
+  flex-direction: column;
+  justify-content: left;
+  width: 66%;
+  margin: auto;
+}
+
+.formdiv {
+  width: 66%
 }

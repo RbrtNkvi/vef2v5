@@ -7,10 +7,30 @@ body {
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+  margin: 0.5em 0.5em 1em;
+  color: #663;
+  font-weight: bold;
+  width: fit-content;
 }
 
 * {
   box-sizing: border-box;
+}
+
+main {
+  display: flex;
+  margin: 0 auto;
+  width: 50%;
+}
+
+button {
+  color:#663;
+  width: fit-content;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  width: 100%;
 }

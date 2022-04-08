@@ -3,6 +3,7 @@ import Link from "next/link";
 import Router from "next/router";
 import { useState } from "react";
 import { useUserContext } from "../context/userContext";
+import styles from '../styles/Home.module.css';
 
 type Event = any;
 
@@ -28,10 +29,11 @@ export default function Home() {
   const [fail, setFail] = useState(false);
 
   return (
-    <div>
+    <div className={styles.container}>
       <Head>
         <title>Innskráning</title>
       </Head>
+      <main className={styles.main}>
       <h1>Innskráning</h1>
       <form onSubmit={async (event) => { 
         event.preventDefault();
@@ -56,7 +58,7 @@ export default function Home() {
         <button type="submit">Innskrá</button>
       </form>
 
-      <footer>
+      <footer className={styles.footer}>
           <Link href='/'><a>Forsíða</a></Link>
           {
             loginContext.state.login.login ? <p>Skráður inn sem <b>{loginContext.state.login.user.user.name}</b></p> : <Link href='/login'>Innskráning</Link>
@@ -65,6 +67,7 @@ export default function Home() {
             loginContext.state.login.login ? <button onClick={loginContext.toggleLogin}>Útskrá</button> : <Link href='/register'>Nýskráning</Link>
           }
         </footer>
+      </main>
     </div>
   )
 }

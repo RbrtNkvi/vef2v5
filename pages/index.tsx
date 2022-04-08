@@ -59,8 +59,8 @@ export default function Home( { data }: Props ) {
             })}
          </ul>
         </section>
-        
-        <footer>
+
+        <footer className={styles.footer}>
           <Link href='/'><a>Forsíða</a></Link>
           {
             loginContext.state.login.login ? <p>Skráður inn sem <b>{loginContext.state.login.user.user.name}</b></p> : <Link href='/login'>Innskráning</Link>

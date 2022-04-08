@@ -1,7 +1,8 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUserContext } from "../context/userContext";
+import styles from '../styles/Home.module.css'
 
 type Registrations = Array<{
   id: number,
@@ -36,16 +37,17 @@ export default function Home( { data, notfound, id }: Event) {
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       <Head>
         <title>{data.name}</title>
       </Head>
 
+    <main className={styles.main}>
       <h1>{data.name}</h1>
       <p>{data.description}</p>
       <p>Skráningar:</p>
 
-      <section>
+      <section className={styles.list}>
         <ul>
           {data.registrations.length === 0 && (
             <li>Engar skráningar</li>
@@ -61,6 +63,7 @@ export default function Home( { data, notfound, id }: Event) {
         </ul>
       </section>
 
+      <div className={styles.formdiv}>
       {
         loginContext.state.login.login ?
       ( 
@@ -93,21 +96,19 @@ export default function Home( { data, notfound, id }: Event) {
           }
         }}>
           <label htmlFor='comment'>Athugasemd:</label><br/>
-          <input type='text' id='comment'></input>
+          <input type='text' id='comment'></input><br/>
           <button type='submit'>Skrá mig</button>
         </form>
         ) 
       ) : (
         <>
           <p>Skráðu þig inn til að skrá þig á viðburðinn</p>
-          <button onClick={async (event) => {
-            
-          }}></button>
         </>
       ) 
       } 
+      </div>
 
-      <footer>
+      <footer className={styles.footer}>
           <Link href='/'><a>Forsíða</a></Link>
           {
             loginContext.state.login.login ? <p>Skráður inn sem <b>{loginContext.state.login.user.user.name}</b></p> : <Link href='/login'>Innskráning</Link>
@@ -116,6 +117,7 @@ export default function Home( { data, notfound, id }: Event) {
             loginContext.state.login.login ? <button onClick={loginContext.toggleLogin}>Útskrá</button> : <Link href='/register'>Nýskráning</Link>
           }
         </footer>
+      </main>
     </div>
   )
 }
