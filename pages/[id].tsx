@@ -1,8 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
+import Router from "next/router";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../context/userContext";
 import styles from '../styles/Home.module.css'
+import Custom404 from "./404";
 
 type Registrations = Array<{
   id: number,
@@ -27,12 +29,12 @@ type Event = {
 }
 
 export default function Home( { data, notfound, id }: Event) {
-  const loginContext = useUserContext();
+  const loginContext =  useUserContext();
   const [registered,setRegistered] = useState(false);
 
   if(notfound) {
     return (
-      <p>404</p>
+      <Custom404></Custom404>
     )
   }
 
@@ -71,7 +73,25 @@ export default function Home( { data, notfound, id }: Event) {
         (
         <>
           <p>Þú hefur skráð þig á þennan viðburð</p>
-          <button>Afskrá</button>
+          <button onClick={ async (event: any) => {
+            const user = loginContext.state.login.user;
+            const token = loginContext.state.login.user.token;
+            const res = await fetch(`https://vef2-20222-v3-synilausn.herokuapp.com/events/${id}/register`, {
+              method: 'DELETE',
+              headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+              },
+              body: JSON.stringify({ user }),
+            });
+            if(res.status === 401) {
+              loginContext.toggleLogin;
+            } else {
+              setRegistered(false);
+            }
+          }}>
+            Afskrá
+          </button>
         </>
         ) :
         (
@@ -80,17 +100,17 @@ export default function Home( { data, notfound, id }: Event) {
           const comment = event.target.comment.value;
           const name = loginContext.state.login.user.user.name;
           const token = loginContext.state.login.user.token;
-          const res = await fetch(`https://vef2-20222-v3-synilausn.herokuapp.com/${id}/register`, {
+          const res = await fetch(`https://vef2-20222-v3-synilausn.herokuapp.com/events/${id}/register`, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({ name, comment}),
           });
           const result = await res.json();
           if(!result) {
-
+            loginContext.toggleLogin;
           } else {
             setRegistered(true);
           }
